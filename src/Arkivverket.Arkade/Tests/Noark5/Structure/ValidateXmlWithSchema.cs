@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Resources;
 using Arkivverket.Arkade.Core;
 using Arkivverket.Arkade.Core.Noark5;
 using Arkivverket.Arkade.Resources;
@@ -11,9 +8,6 @@ using Arkivverket.Arkade.Util;
 
 namespace Arkivverket.Arkade.Tests.Noark5.Structure
 {
-    /// <summary>
-    ///     Validates that the XML files (arkivuttrekk.xml and arkivstruktur.xml) are valid with regards to the XML schema.
-    ///  </summary>
     public class ValidateXmlWithSchema : Noark5StructureBaseTest
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 3);
@@ -22,24 +16,27 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
         public override void Test(Archive archive)
         {
-            ValidateXml(archive.AddmlFile.FullName, archive.AddmlFile.AsStream(),
+            ValidateXml(archive.AddmlFile,
                 GetStructureDescriptionXmlSchemaStream(archive));
 
-            ValidateXml(archive.ArchiveStructureFile.FullName, archive.ArchiveStructureFile.AsStream(),
-                GetContentDescriptionXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+            ValidateXml(archive.ArchiveStructureFile,
+                GetContentDescriptionXmlSchemaStream(archive),
+                GetMetadataCatalogXmlSchemaStream(archive));
 
             if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.PublicJournalXmlFileName, archive))
-                ValidateXml(archive.PublicJournalFile.FullName, archive.PublicJournalFile.AsStream(),
-                    GetPublicJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+                ValidateXml(archive.PublicJournalFile,
+                    GetPublicJournalXmlSchemaStream(archive),
+                    GetMetadataCatalogXmlSchemaStream(archive));
 
             if (Noark5TestHelper.FileIsDescribed(ArkadeConstants.RunningJournalXmlFileName, archive))
-                ValidateXml(archive.RunningJournalFile.FullName, archive.RunningJournalFile.AsStream(),
-                    GetRunningJournalXmlSchemaStream(archive), GetMetadataCatalogXmlSchemaStream(archive));
+                ValidateXml(archive.RunningJournalFile,
+                    GetRunningJournalXmlSchemaStream(archive),
+                    GetMetadataCatalogXmlSchemaStream(archive));
         }
 
-        private void ValidateXml(string fullPathToFile, Stream fileStream, params Stream[] xsdResources)
+        private void ValidateXml(ArkadeFile xmlFile, params Stream[] xsdResources)
         {
-            string fileName = Path.GetFileName(fullPathToFile);
+            string fileName = xmlFile.Name;
 
             // Use the Noark 5 archive filename for testresults:
             if (fileName.Equals(ArkadeConstants.AddmlXmlFileName)) 
@@ -47,7 +44,7 @@ namespace Arkivverket.Arkade.Tests.Noark5.Structure
 
             try
             {
-                foreach (string validationErrorMessage in new XmlValidator().Validate(fileStream, xsdResources))
+                foreach (string validationErrorMessage in new XmlValidator().Validate(xmlFile.AsStream(), xsdResources))
                     _testResults.Add(new TestResult(ResultType.Error, new Location(fileName), validationErrorMessage));
             }
             catch (Exception e)
