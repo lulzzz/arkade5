@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Arkivverket.Arkade.Util;
+using Arkivverket.Arkade.Resources;
 
 namespace Arkivverket.Arkade.Core
 {
@@ -11,7 +12,16 @@ namespace Arkivverket.Arkade.Core
     {
         private readonly IArkadeTest _test;
         public TestId TestId => _test.GetId();
-        public string TestName => _test.GetName();
+        public string TestName => GetReportFriendlyName(_test.GetName());
+
+        private string GetReportFriendlyName(string name)
+        {
+            var friendlyName = ReportFriendlyNames.ResourceManager.GetString(name);
+            if (!string.IsNullOrEmpty(friendlyName))
+                return friendlyName;
+
+            return name;
+        }
         public TestType TestType => _test.GetTestType();
         public string TestDescription => _test.GetDescription();
         public List<TestResult> Results { get; set; }

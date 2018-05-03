@@ -86,6 +86,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Report.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\ReportFriendlyNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ReportFriendlyNames.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -116,6 +121,10 @@
     <EmbeddedResource Update="Resources\Report.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Report.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ReportFriendlyNames.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ReportFriendlyNames.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
