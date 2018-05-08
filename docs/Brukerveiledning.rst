@@ -1,6 +1,12 @@
 Brukerveiledning
 ================
 
+Arkade 5
+********
+
+**Skrivebordsapplikasjon for Windows**
+
+
 Oppdatert 21.08.2017
 
 Arkade 5 brukes ved å lese inn et arkivuttrekk, utføre testing av uttrekket og/eller opprette en arkivpakke av uttrekket. Ved testing genereres det en utfyllende testrapport.
@@ -104,3 +110,24 @@ Prosesseringsområde
 -------------------
 
 Under kjøring benytter Arkade et filområde til plassering av midlertidige filer fra arkivprosessering, system- og feillogger samt andre systemfiler. Plassering for prosesseringsområdet velges av bruker som en katalog i filsystemet og må være definert før arkiv kan behandles. Plasseringen som velges må være egnet med tanke på størrelse, tilgjengelighet og personvern. Størrelsen må være minst den av alle uttrekk som skal behandles under samme kjøring i tillegg til plass for systemfiler. Ved avslutning av Arkade igangsettes sletting av midlertidige filer og gamle loggfiler. Plasseringen av prosesseringsområdet kan når som helst endres fra innstillingsvinduet. Ved endring av plassering, igangsettes sletting av opprinnelig prosesseringsområde. Ny plassering vil tas i bruk neste gang Arkade startes.
+
+__________________________________________________________________________
+
+
+Arkade 5 CLI 
+************
+
+**Kommandolinjegrensesnitt for Linux, macOS og Windows**
+
+Køyring
+~~~~~~~
+
+Ikkje køyr før eg seier køyr! ... Køyr!
+
+
+Parametre
+---------
+
+* Ein
+* To
+* Tri
